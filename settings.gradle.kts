@@ -1,1 +1,1 @@
-rootProject.name = "customer_api_spring_boot"
+rootProject.name = "kotlin_studies_customer_api"
