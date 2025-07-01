@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class CustomerApiSpringBootApplication
+class KotlinStudiesCustomerApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<CustomerApiSpringBootApplication>(*args)
+	runApplication<KotlinStudiesCustomerApiApplication>(*args)
 }
