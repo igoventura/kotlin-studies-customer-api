@@ -8,10 +8,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import me.igoventura.customer_api_spring_boot.dto.CustomerRequest
 import me.igoventura.customer_api_spring_boot.dto.CustomerResponse
+import me.igoventura.customer_api_spring_boot.dto.PageResponse
 import me.igoventura.customer_api_spring_boot.exception.ErrorResponse
 import me.igoventura.customer_api_spring_boot.service.CustomerService
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.net.URI
 
@@ -47,9 +47,11 @@ class CustomerController(
         ]
     )
     @GetMapping
-    fun getAll(pageable: Pageable): ResponseEntity<Page<CustomerResponse>> {
-        val customers = customerService.getAll(pageable)
-        return ResponseEntity.ok().body(customers)
+    suspend fun getAll(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int
+    ): ResponseEntity<PageResponse<CustomerResponse>> {
+        return ResponseEntity.ok().body(customerService.getAll(page, size))
     }
 
     @Operation(
@@ -81,9 +83,8 @@ class CustomerController(
         ]
     )
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long): ResponseEntity<CustomerResponse> {
-        val customer = customerService.getById(id)
-        return ResponseEntity.ok().body(customer)
+    suspend fun getById(@PathVariable id: Long): ResponseEntity<CustomerResponse> {
+        return ResponseEntity.ok().body(customerService.getById(id))
     }
 
     @Operation(
@@ -105,7 +106,7 @@ class CustomerController(
         ]
     )
     @PostMapping
-    fun create(@Valid @RequestBody request: CustomerRequest): ResponseEntity<CustomerResponse> {
+    suspend fun create(@Valid @RequestBody request: CustomerRequest): ResponseEntity<CustomerResponse> {
         val createdCustomer = customerService.create(request)
 
         return ResponseEntity
@@ -142,10 +143,11 @@ class CustomerController(
         ]
     )
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @Valid @RequestBody request: CustomerRequest): ResponseEntity<CustomerResponse> {
-        val updatedCustomer = customerService.update(id, request)
-
-        return ResponseEntity.ok().body(updatedCustomer)
+    suspend fun update(
+        @PathVariable id: Long,
+        @Valid @RequestBody request: CustomerRequest
+    ): ResponseEntity<CustomerResponse> {
+        return ResponseEntity.ok().body(customerService.update(id, request))
     }
 
     @Operation(
@@ -171,7 +173,7 @@ class CustomerController(
         ]
     )
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
+    suspend fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
         customerService.delete(id)
         return ResponseEntity.noContent().build()
     }
