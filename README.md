@@ -1,18 +1,19 @@
 # Customer API - A Reactive Spring Boot & Kotlin Project
 
-This project is a fully reactive REST API for managing customers, built with Spring Boot, Spring WebFlux, and Kotlin Coroutines. It serves as a comprehensive example of building modern, non-blocking web services in the Spring ecosystem.
+This project is a fully reactive REST API for managing customers and their associated orders, built with Spring Boot, Spring WebFlux, and Kotlin Coroutines. It serves as a comprehensive example of building modern, non-blocking web services in the Spring ecosystem.
 
-The development of this project followed a guided, step-by-step process, evolving from a traditional blocking Spring MVC application into a fully asynchronous, reactive service. This evolution demonstrates the key architectural changes required for building scalable, high-performance applications.
+The development of this project followed a guided, step-by-step process, evolving from a traditional blocking Spring MVC application into a fully asynchronous, reactive service with relational data.
 
 ## Features
 
 - **Full CRUD Operations**: Create, Read, Update, and Delete functionality for customers.
+- **One-to-Many Relationship**: Manages `Order` entities linked to a `Customer`.
 - **Asynchronous & Non-Blocking**: Built on a fully reactive stack (WebFlux, R2DBC, Coroutines) to handle high concurrency with minimal resources.
 - **Paginated Data Fetching**: The `GET /api/v1/customers` endpoint supports efficient pagination.
 - **Input Validation**: Robust validation on request bodies to ensure data integrity.
 - **Centralized Exception Handling**: Graceful error handling for issues like not-found resources and validation failures.
 - **API Documentation**: Integrated Swagger UI for live API documentation and testing.
-- **Clean Architecture**: Follows a standard layered architecture (Controller, Service, Repository) with a clear separation of concerns.
+- **Clean Architecture**: Follows a standard layered architecture (Controller, Service, Repository) with a clear separation of concerns and a generic service layer for reusability.
 
 ## Tech Stack
 
@@ -35,7 +36,7 @@ The development of this project followed a guided, step-by-step process, evolvin
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/igoventura/kotlin-studies-customer-api/
+    git clone https://github.com/igoventura/kotlin-studies-customer-api
     cd kotlin-studies-customer-api
     ```
 
@@ -60,6 +61,8 @@ The application will start on `http://localhost:8080`.
 
 ## API Endpoints
 
+### Customer Endpoints
+
 | Method | URL                               | Description                                                               |
 | :----- | :-------------------------------- | :------------------------------------------------------------------------ |
 | `POST` | `/api/v1/customers`               | Creates a new customer.                                                   |
@@ -68,7 +71,39 @@ The application will start on `http://localhost:8080`.
 | `PUT`  | `/api/v1/customers/{id}`          | Updates an existing customer's details.                                   |
 | `DELETE`| `/api/v1/customers/{id}`          | Deletes a customer by their unique ID.                                    |
 
+#### Example `POST /api/v1/customers` Request Body
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com"
+}
+```
+
+### Order Endpoints
+
+| Method | URL                                   | Description                                       |
+| :----- | :------------------------------------ | :------------------------------------------------ |
+| `POST` | `/api/v1/customers/{customerId}/orders` | Creates a new order for a specific customer.      |
+| `GET`  | `/api/v1/customers/{customerId}/orders` | Retrieves all orders for a specific customer.     |
+
+#### Example `POST /api/v1/customers/{customerId}/orders` Request Body
+```json
+{
+  "productName": "Laptop Stand",
+  "amount": 49.99
+}
+```
+
 ---
+
+## Architectural Highlights
+
+### Generic Service & Repository Layer
+
+To promote code reuse and a clean design, this project utilizes a generic base `Service` class and a custom `PageableRepository` interface.
+
+-   **`PageableRepository<T, ID>`**: This interface extends `CoroutineCrudRepository` and enforces a contract that any repository must provide an efficient, database-level pagination method (`findAllBy(pageable: Pageable)`). This ensures high performance.
+-   **`Service<T, ID>`**: This abstract class takes a `PageableRepository` and provides a reusable, concurrent implementation for fetching paginated data using `coroutineScope`. This keeps the concrete service implementations (like `CustomerService`) thin and focused on their specific business logic.
 
 ## Project Evolution: From Blocking to Reactive
 
@@ -79,8 +114,6 @@ This project was intentionally built in two major phases to demonstrate the migr
 The initial version was built using a standard Spring Boot stack:
 - **Spring Web MVC**: For handling requests with a thread-per-request model.
 - **Spring Data JPA**: For blocking database access.
-
-This architecture is simple and effective for many use cases but can become a bottleneck under high I/O load as threads get blocked waiting for database operations.
 
 ### Phase 2: The Reactive (WebFlux) Migration
 
