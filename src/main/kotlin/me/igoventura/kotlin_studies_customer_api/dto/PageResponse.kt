@@ -1,4 +1,4 @@
-package me.igoventura.customer_api_spring_boot.dto
+package me.igoventura.kotlin_studies_customer_api.dto
 
 data class PageResponse<T>(
     val data: List<T>,

@@ -1,4 +1,4 @@
-package me.igoventura.customer_api_spring_boot
+package me.igoventura.kotlin_studies_customer_api
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

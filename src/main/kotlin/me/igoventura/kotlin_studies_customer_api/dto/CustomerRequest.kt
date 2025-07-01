@@ -1,8 +1,8 @@
-package me.igoventura.customer_api_spring_boot.dto
+package me.igoventura.kotlin_studies_customer_api.dto
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import me.igoventura.customer_api_spring_boot.model.Customer
+import me.igoventura.kotlin_studies_customer_api.model.Customer
 
 data class CustomerRequest(
     @field:NotBlank(message = "Customer name cannot be blank")

@@ -1,4 +1,4 @@
-package me.igoventura.customer_api_spring_boot.model
+package me.igoventura.kotlin_studies_customer_api.model
 
 
 import org.springframework.data.annotation.Id

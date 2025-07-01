@@ -1,16 +1,16 @@
-package me.igoventura.customer_api_spring_boot.service
+package me.igoventura.kotlin_studies_customer_api.service
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.toList
-import me.igoventura.customer_api_spring_boot.dto.CustomerRequest
-import me.igoventura.customer_api_spring_boot.dto.CustomerResponse
-import me.igoventura.customer_api_spring_boot.dto.PageResponse
-import me.igoventura.customer_api_spring_boot.dto.toModel
-import me.igoventura.customer_api_spring_boot.dto.toResponse
-import me.igoventura.customer_api_spring_boot.exception.NotFoundException
-import me.igoventura.customer_api_spring_boot.model.Customer
-import me.igoventura.customer_api_spring_boot.repository.CustomerRepository
+import me.igoventura.kotlin_studies_customer_api.dto.CustomerRequest
+import me.igoventura.kotlin_studies_customer_api.dto.CustomerResponse
+import me.igoventura.kotlin_studies_customer_api.dto.PageResponse
+import me.igoventura.kotlin_studies_customer_api.dto.toModel
+import me.igoventura.kotlin_studies_customer_api.dto.toResponse
+import me.igoventura.kotlin_studies_customer_api.exception.NotFoundException
+import me.igoventura.kotlin_studies_customer_api.model.Customer
+import me.igoventura.kotlin_studies_customer_api.repository.CustomerRepository
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,6 +1,6 @@
-package me.igoventura.customer_api_spring_boot.dto
+package me.igoventura.kotlin_studies_customer_api.dto
 
-import me.igoventura.customer_api_spring_boot.model.Customer
+import me.igoventura.kotlin_studies_customer_api.model.Customer
 
 data class CustomerResponse(
     val id: Long,

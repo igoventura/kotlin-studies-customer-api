@@ -1,4 +1,4 @@
-package me.igoventura.customer_api_spring_boot.controller
+package me.igoventura.kotlin_studies_customer_api.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -6,11 +6,11 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
-import me.igoventura.customer_api_spring_boot.dto.CustomerRequest
-import me.igoventura.customer_api_spring_boot.dto.CustomerResponse
-import me.igoventura.customer_api_spring_boot.dto.PageResponse
-import me.igoventura.customer_api_spring_boot.exception.ErrorResponse
-import me.igoventura.customer_api_spring_boot.service.CustomerService
+import me.igoventura.kotlin_studies_customer_api.dto.CustomerRequest
+import me.igoventura.kotlin_studies_customer_api.dto.CustomerResponse
+import me.igoventura.kotlin_studies_customer_api.dto.PageResponse
+import me.igoventura.kotlin_studies_customer_api.exception.ErrorResponse
+import me.igoventura.kotlin_studies_customer_api.service.CustomerService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping

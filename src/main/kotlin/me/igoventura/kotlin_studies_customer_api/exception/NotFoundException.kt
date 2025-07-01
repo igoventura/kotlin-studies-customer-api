@@ -1,3 +1,3 @@
-package me.igoventura.customer_api_spring_boot.exception
+package me.igoventura.kotlin_studies_customer_api.exception
 
 class NotFoundException(message: String) : RuntimeException(message)

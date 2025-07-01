@@ -1,4 +1,4 @@
-package me.igoventura.customer_api_spring_boot.config
+package me.igoventura.kotlin_studies_customer_api.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

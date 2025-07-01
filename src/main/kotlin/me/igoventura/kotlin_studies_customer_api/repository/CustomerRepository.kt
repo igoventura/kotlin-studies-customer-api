@@ -1,6 +1,6 @@
-package me.igoventura.customer_api_spring_boot.repository
+package me.igoventura.kotlin_studies_customer_api.repository
 
-import me.igoventura.customer_api_spring_boot.model.Customer
+import me.igoventura.kotlin_studies_customer_api.model.Customer
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
 

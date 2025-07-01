@@ -1,4 +1,4 @@
-package me.igoventura.customer_api_spring_boot.exception
+package me.igoventura.kotlin_studies_customer_api.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
