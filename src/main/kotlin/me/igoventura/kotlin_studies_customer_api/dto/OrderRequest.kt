@@ -6,7 +6,6 @@ import me.igoventura.kotlin_studies_customer_api.model.Order
 data class OrderRequest(
     @field:NotEmpty
     val productName: String,
-    @field:NotEmpty
     val amount: Double
 )
 

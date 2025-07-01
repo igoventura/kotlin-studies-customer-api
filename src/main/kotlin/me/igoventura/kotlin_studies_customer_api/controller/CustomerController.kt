@@ -51,7 +51,7 @@ class CustomerController(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int
     ): ResponseEntity<PageResponse<CustomerResponse>> {
-        return ResponseEntity.ok().body(customerService.getAllByPage(page, size))
+        return ResponseEntity.ok(customerService.getAllByPage(page, size))
     }
 
     @Operation(
@@ -84,7 +84,7 @@ class CustomerController(
     )
     @GetMapping("/{id}")
     suspend fun getById(@PathVariable id: Long): ResponseEntity<CustomerResponse> {
-        return ResponseEntity.ok().body(customerService.getById(id))
+        return ResponseEntity.ok(customerService.getById(id))
     }
 
     @Operation(
@@ -147,7 +147,7 @@ class CustomerController(
         @PathVariable id: Long,
         @Valid @RequestBody request: CustomerRequest
     ): ResponseEntity<CustomerResponse> {
-        return ResponseEntity.ok().body(customerService.update(id, request))
+        return ResponseEntity.ok(customerService.update(id, request))
     }
 
     @Operation(
