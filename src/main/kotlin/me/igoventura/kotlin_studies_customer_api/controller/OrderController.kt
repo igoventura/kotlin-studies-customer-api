@@ -26,7 +26,7 @@ class OrderController(
     ): ResponseEntity<OrderResponse> {
         val createdOrder = orderService.create(customerId, request)
         return ResponseEntity
-            .created(URI.create("/api/v1/customers/${createdOrder.customerId}/orders/${createdOrder.id}"))
+            .created(URI.create("/api/v1/customers/${createdOrder.customerId}/orders"))
             .body(createdOrder)
     }
 
