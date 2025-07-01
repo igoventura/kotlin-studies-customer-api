@@ -51,7 +51,7 @@ class CustomerController(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int
     ): ResponseEntity<PageResponse<CustomerResponse>> {
-        return ResponseEntity.ok().body(customerService.getAll(page, size))
+        return ResponseEntity.ok().body(customerService.getAllByPage(page, size))
     }
 
     @Operation(

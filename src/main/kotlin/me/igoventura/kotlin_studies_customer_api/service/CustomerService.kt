@@ -1,8 +1,5 @@
 package me.igoventura.kotlin_studies_customer_api.service
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.toList
 import me.igoventura.kotlin_studies_customer_api.dto.CustomerRequest
 import me.igoventura.kotlin_studies_customer_api.dto.CustomerResponse
 import me.igoventura.kotlin_studies_customer_api.dto.PageResponse
@@ -16,28 +13,14 @@ import org.springframework.stereotype.Service
 @Service
 class CustomerService(
     private val customerRepository: CustomerRepository
-) {
-    suspend fun getAll(page: Int, size: Int): PageResponse<CustomerResponse> = coroutineScope {
-        val customersDeferred = async {
-            customerRepository.findAll()
-                .toList()
-                .drop(page * size)
-                .take(size)
-                .map { it.toResponse() }
-        }
-
-        val totalElementsDeferred = async {
-            customerRepository.count()
-        }
-
-        val customers = customersDeferred.await()
-        val totalElements = totalElementsDeferred.await()
-
-        PageResponse(
-            data = customers,
-            currentPage = page,
-            pageSize = size,
-            totalElements = totalElements
+): me.igoventura.kotlin_studies_customer_api.service.Service<Customer, Long>(customerRepository){
+    suspend fun getAllByPage(page: Int, size: Int): PageResponse<CustomerResponse> {
+        val dbPage = super.getAll(page, size)
+        return PageResponse(
+            data = dbPage.data.map { it.toResponse() },
+            currentPage = dbPage.currentPage,
+            pageSize = dbPage.pageSize,
+            totalElements = dbPage.totalElements
         )
     }
 
