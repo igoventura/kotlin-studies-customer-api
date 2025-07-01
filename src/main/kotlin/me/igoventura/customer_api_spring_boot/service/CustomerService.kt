@@ -7,15 +7,16 @@ import me.igoventura.customer_api_spring_boot.dto.toResponse
 import me.igoventura.customer_api_spring_boot.exception.NotFoundException
 import me.igoventura.customer_api_spring_boot.model.Customer
 import me.igoventura.customer_api_spring_boot.repository.CustomerRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.Optional
 
 @Service
 class CustomerService(
     private val customerRepository: CustomerRepository
 ) {
-    fun getAll(): List<CustomerResponse> {
-        val dbCustomers = customerRepository.findAll()
+    fun getAll(pageable: Pageable): Page<CustomerResponse> {
+        val dbCustomers = customerRepository.findAll(pageable)
 
         return dbCustomers.map { it.toResponse() }
     }

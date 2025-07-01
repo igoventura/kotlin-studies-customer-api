@@ -10,6 +10,8 @@ import me.igoventura.customer_api_spring_boot.dto.CustomerRequest
 import me.igoventura.customer_api_spring_boot.dto.CustomerResponse
 import me.igoventura.customer_api_spring_boot.exception.ErrorResponse
 import me.igoventura.customer_api_spring_boot.service.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,8 +29,8 @@ class CustomerController(
     private val customerService: CustomerService
 ) {
     @Operation(
-        summary = "Get all customers",
-        description = "Returns all customers."
+        summary = "Get all customers (paginated)",
+        description = "Returns a paginated list of all customers."
     )
     @ApiResponses(
         value = [
@@ -45,8 +47,8 @@ class CustomerController(
         ]
     )
     @GetMapping
-    fun getAll(): ResponseEntity<List<CustomerResponse>> {
-        val customers = customerService.getAll()
+    fun getAll(pageable: Pageable): ResponseEntity<Page<CustomerResponse>> {
+        val customers = customerService.getAll(pageable)
         return ResponseEntity.ok().body(customers)
     }
 
