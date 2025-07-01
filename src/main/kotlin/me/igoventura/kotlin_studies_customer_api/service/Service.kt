@@ -4,17 +4,16 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.toList
 import me.igoventura.kotlin_studies_customer_api.dto.PageResponse
-import org.springframework.data.repository.kotlin.CoroutineCrudRepository
+import me.igoventura.kotlin_studies_customer_api.repository.PageableRepository
+import org.springframework.data.domain.PageRequest
 
 abstract class Service<T, ID>(
-    private val repository: CoroutineCrudRepository<T, ID>
+    private val repository: PageableRepository<T, ID>
 ) {
     open suspend fun getAll(page: Int, size: Int): PageResponse<T> = coroutineScope {
         val dataDeferred = async {
-            repository.findAll()
+            repository.findAllBy(PageRequest.of(page, size))
                 .toList()
-                .drop(page * size)
-                .take(size)
         }
 
         val totalElementsDeferred = async {
